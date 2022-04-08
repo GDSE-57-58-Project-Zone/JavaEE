@@ -143,7 +143,7 @@
     $("#btn3").click(function () {
         $.ajax({
             url: "http://localhost:8080/absd/customer",
-            method:"GET",
+            method:"POST",
             success: function (resp) {
                 console.log(resp);
             }
