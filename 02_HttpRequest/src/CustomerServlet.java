@@ -10,12 +10,12 @@ import java.io.PrintWriter;
  * @author : Sanu Vithanage
  * @since : 0.1.0
  **/
+@WebServlet(urlPatterns = "/customer")
+public class CustomerServlet extends HttpServlet {
 
-@WebServlet(urlPatterns = "/hello")
-public class MyServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter writer = resp.getWriter();
-        writer.write("Hello Iam from HTTP Request Module");
+        writer.write("Response from Customer Servlet Generated");
     }
 }
