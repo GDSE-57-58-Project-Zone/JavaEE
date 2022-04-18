@@ -40,10 +40,10 @@ public class CustomerServlet extends HttpServlet {
             //{id:C001,name:Dasun,address:Galle,salary:1000},{id:C001,name:Dasun,address:Galle,salary:1000}
             //[{id:C001,name:Dasun,address:Galle,salary:1000},{id:C001,name:Dasun,address:Galle,salary:1000}]
 
-            String finalJosn = "[" + allRecords + "]";
+            String finalJson = "[" + allRecords.substring(0,allRecords.length()-1) + "]";
 
             PrintWriter writer = resp.getWriter();
-            writer.write(finalJosn); //text //xml //html //json
+            writer.write(finalJson); //text //xml //html //json
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
