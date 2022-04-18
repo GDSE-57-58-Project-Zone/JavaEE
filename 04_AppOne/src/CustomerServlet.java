@@ -39,7 +39,7 @@ public class CustomerServlet extends HttpServlet {
                 allRecords = allRecords + customer;
             }
             //Output of allRecords for now
-            //{id:C001,name:Dasun,address:Galle,salary:1000},{id:C001,name:Dasun,address:Galle,salary:1000}
+            //{id:C001,name:Dasun,address:Galle,salary:1000},{id:C001,name:Dasun,address:Galle,salary:1000},
 
             //How it should be formatted
             //[{id:C001,name:Dasun,address:Galle,salary:1000},{id:C001,name:Dasun,address:Galle,salary:1000}]
