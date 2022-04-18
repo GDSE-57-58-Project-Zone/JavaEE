@@ -25,19 +25,25 @@ public class CustomerServlet extends HttpServlet {
             Class.forName("com.mysql.jdbc.Driver");
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/company", "root", "sanu");
             ResultSet rst = connection.prepareStatement("select * from Customer").executeQuery();
+            String allRecords = "";
             while (rst.next()) {
                 String id = rst.getString(1);
                 String name = rst.getString(2);
                 String address = rst.getString(3);
                 double salary = rst.getDouble(4);
-                System.out.println(id + " " + name + " " + address + " " + salary);
+
+                //Convert one record for json
+                String customer = "{\"id\":\"" + id + "\",\"name\":\"" + name + "\",\"address\":\"" + address + "\",\"salary\":" + salary + "},";
+                allRecords = allRecords + customer;
             }
 
+            //{id:C001,name:Dasun,address:Galle,salary:1000},{id:C001,name:Dasun,address:Galle,salary:1000}
+            //[{id:C001,name:Dasun,address:Galle,salary:1000},{id:C001,name:Dasun,address:Galle,salary:1000}]
+
+            String finalJosn = "[" + allRecords + "]";
+
             PrintWriter writer = resp.getWriter();
-            //writer.write(); //text //xml //html //json
-
-
-
+            writer.write(finalJosn); //text //xml //html //json
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

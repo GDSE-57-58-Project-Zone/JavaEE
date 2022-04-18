@@ -50,6 +50,7 @@
         $.ajax({
             url: "customer",
             method:"GET",
+            dataType:"json",
             success: function (resp) {
                 console.log(resp);
             }
