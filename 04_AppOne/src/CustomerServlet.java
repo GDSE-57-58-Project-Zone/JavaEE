@@ -16,6 +16,9 @@ import java.sql.SQLException;
  **/
 @WebServlet(urlPatterns = "/customer")
 public class CustomerServlet extends HttpServlet {
+    // Json Formats
+    // String json="{id:C001,name:Dasun,address:Galle,salary:1000}"; //single customer info
+    // String jsonSet="[{id:C001,name:Dasun,address:Galle,salary:1000},{id:C001,name:Dasun,address:Galle,salary:1000}]"; //multiple customer info
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
@@ -32,6 +35,9 @@ public class CustomerServlet extends HttpServlet {
 
             PrintWriter writer = resp.getWriter();
             //writer.write(); //text //xml //html //json
+
+
+
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
