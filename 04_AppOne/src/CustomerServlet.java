@@ -22,10 +22,12 @@ public class CustomerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
+            //Initialize the connection
             Class.forName("com.mysql.jdbc.Driver");
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/company", "root", "sanu");
             ResultSet rst = connection.prepareStatement("select * from Customer").executeQuery();
             String allRecords = "";
+            // Access the records and generate a json object
             while (rst.next()) {
                 String id = rst.getString(1);
                 String name = rst.getString(2);
@@ -36,14 +38,18 @@ public class CustomerServlet extends HttpServlet {
                 String customer = "{\"id\":\"" + id + "\",\"name\":\"" + name + "\",\"address\":\"" + address + "\",\"salary\":" + salary + "},";
                 allRecords = allRecords + customer;
             }
-
+            //Output of allRecords for now
             //{id:C001,name:Dasun,address:Galle,salary:1000},{id:C001,name:Dasun,address:Galle,salary:1000}
+
+            //How it should be formatted
             //[{id:C001,name:Dasun,address:Galle,salary:1000},{id:C001,name:Dasun,address:Galle,salary:1000}]
 
+           //After last customer object, ',' should be removed
             String finalJson = "[" + allRecords.substring(0,allRecords.length()-1) + "]";
 
+            //Then print it as the response
             PrintWriter writer = resp.getWriter();
-            writer.write(finalJson); //text //xml //html //json
+            writer.write(finalJson); //Possible response types -> //text //xml //html //json
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
