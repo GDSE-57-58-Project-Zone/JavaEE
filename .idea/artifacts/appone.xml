@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="appone">
+    <output-path>$PROJECT_DIR$/out/artifacts/appone</output-path>
+    <root id="archive" name="appone.war">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="04_AppOne" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="04_AppOne/web/Web" />
+    </root>
+  </artifact>
+</component>
