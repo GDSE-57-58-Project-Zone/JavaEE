@@ -21,6 +21,12 @@ public class CustomerServlet extends HttpServlet {
     // String jsonSet="[{id:C001,name:Dasun,address:Galle,salary:1000},{id:C001,name:Dasun,address:Galle,salary:1000}]"; //multiple customer info
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+     /*   String customerID = req.getParameter("customerID"); // name value from the input field
+        String customerName = req.getParameter("customerName");
+        String customerAddress = req.getParameter("customerAddress");
+        String salary = req.getParameter("customerSalary");
+        System.out.println(customerID+" "+customerName+" "+customerAddress+" "+salary+" From Get");*/
+
         try {
             //The Media Type of the Content of the response
             resp.setContentType("application/json"); // MIME Types (Multipurpose Internet Mail Extensions)
