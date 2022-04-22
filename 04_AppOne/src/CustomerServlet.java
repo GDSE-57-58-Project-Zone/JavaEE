@@ -22,8 +22,10 @@ public class CustomerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
+            //The Media Type of the Content of the response
             resp.setContentType("application/json"); // MIME Types (Multipurpose Internet Mail Extensions)
 
+            //meta data for response from headers
             resp.addHeader("Institute","IJSE");
             resp.addHeader("Course","GDSE");
 
