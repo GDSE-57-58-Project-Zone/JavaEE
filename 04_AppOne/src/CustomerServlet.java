@@ -70,11 +70,10 @@ public class CustomerServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("Customer Post Method Invoked");
-        PrintWriter writer = resp.getWriter();
-        writer.write("Hello There");
-
-
-
+        String customerID = req.getParameter("customerID");
+        String customerName = req.getParameter("customerName");
+        String customerAddress = req.getParameter("customerAddress");
+        String salary = req.getParameter("customerSalary");
+        System.out.println(customerID+" "+customerName+" "+customerAddress+" "+salary);
     }
 }
