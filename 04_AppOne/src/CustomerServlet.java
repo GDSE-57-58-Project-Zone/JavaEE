@@ -70,7 +70,7 @@ public class CustomerServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String customerID = req.getParameter("customerID");
+        String customerID = req.getParameter("customerID"); // name value from the input field
         String customerName = req.getParameter("customerName");
         String customerAddress = req.getParameter("customerAddress");
         String salary = req.getParameter("customerSalary");
