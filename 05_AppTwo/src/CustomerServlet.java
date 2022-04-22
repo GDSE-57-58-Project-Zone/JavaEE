@@ -97,8 +97,16 @@ public class CustomerServlet extends HttpServlet {
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+            resp.sendError(500,e.getMessage());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            resp.sendError(500,throwables.getMessage());
         }
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+
     }
 }
