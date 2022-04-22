@@ -92,7 +92,9 @@
 
 
     $("#btnSaveCustomer").click(function () {
-       var data= $("#customerForm").serialize();
+
+       var data= $("#customerForm").serialize(); // return query string of form with name:type-value
+
         console.log(data);
 
         $.ajax({
