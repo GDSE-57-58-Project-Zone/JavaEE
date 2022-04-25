@@ -1,3 +1,6 @@
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
 import javax.servlet.ServletException;
 import javax.servlet.ServletInputStream;
 import javax.servlet.annotation.WebServlet;
@@ -17,12 +20,21 @@ public class CustomerServlet extends HttpServlet {
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("Method Invoked");
 
-        ServletInputStream inputStream = req.getInputStream();
+        /*ServletInputStream inputStream = req.getInputStream();
 
         int read;
         while ((read = inputStream.read()) != -1) {
             System.out.print((char)read);
-        }
+        }*/
+
+        //How to work with JSON processing
+        JsonReader reader = Json.createReader(req.getReader());
+        JsonObject jsonObject = reader.readObject();
+        String id = jsonObject.getString("id");
+        String name = jsonObject.getString("name");
+        String address = jsonObject.getString("address");
+        System.out.println(id+" "+name+" "+address);
+
 
     }
 }
