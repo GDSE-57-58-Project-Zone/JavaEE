@@ -24,12 +24,14 @@ public class JSONServlet extends HttpServlet {
 
         resp.setContentType("application/json");
 
+        //How to generate a single JSON object using JSON Processing
         JsonObjectBuilder objectB = Json.createObjectBuilder();
         objectB.add("id","C001");
         objectB.add("name","Ramal");
         objectB.add("address","Galle");
         objectB.add("salary",1000.00);
         JsonObject build = objectB.build();
+
 
         PrintWriter writer = resp.getWriter();
         writer.print(build);
