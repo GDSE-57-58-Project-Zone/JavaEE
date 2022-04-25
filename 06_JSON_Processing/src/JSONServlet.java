@@ -54,7 +54,6 @@ public class JSONServlet extends HttpServlet {
         PrintWriter writer = resp.getWriter();
         writer.print(arrayBuilder.build()); // then print the jso array as the response
 
-
     }
 
     @Override
