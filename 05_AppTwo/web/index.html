@@ -38,9 +38,10 @@
                            type="text">
                 </div>
                 <div class="mb-3">
-                    <button class="btn btn-primary" id="btnSaveCustomer" type="button">Save Customer</button>
-                    <button class="btn btn-warning" id="btnDeleteCustomer" type="button">Delete Customer</button>
-                    <button class="btn btn-danger" id="btn3">Get All</button>
+                    <button class="btn btn-primary" id="btnSaveCustomer" type="button">Save</button>
+                    <button class="btn btn-warning" id="btnUpdateCustomer" type="button">Update</button>
+                    <button class="btn btn-danger" id="btnDeleteCustomer" type="button">Delete</button>
+                    <button class="btn btn-success" id="btnGetAllCustomers">Get All</button>
                 </div>
             </form>
         </div>
@@ -71,29 +72,15 @@
 
 <script src="assets/jQuery/jquery-3.6.0.min.js"></script>
 <script>
-    loadAllCustomers();
 
-    function loadAllCustomers() {
-        $("#tblCustomerJson").empty();
-        $.ajax({
-            url: "customer",
-            method: "GET",
-            // dataType:"json", // please convert the response into JSON
-            success: function (resp) {
-                console.log(typeof resp);
-                for (const customer of resp) {
-                    let row = `<tr><td>${customer.id}</td><td>${customer.name}</td><td>${customer.address}</td><td>${customer.salary}</td></tr>`;
-                    $("#tblCustomerJson").append(row);
-                }
-            }
-        });
-    }
 
-    $("#btn3").click(function () {
+    //Events
+    //Get all customers
+    $("#btnGetAllCustomers").click(function () {
         loadAllCustomers();
     });
 
-
+    //Save customer
     $("#btnSaveCustomer").click(function () {
         var data = $("#customerForm").serialize(); // return query string of form with name:type-value
         $.ajax({
@@ -111,9 +98,9 @@
         });
     });
 
-
     //Query String
     //http://localhost:8080/apptwo/customer?CusID=C00-001&CusName=Dasun
+    //Delete customer
     $("#btnDeleteCustomer").click(function (){
         // Get the customer id
       let customerID=  $("#cusID").val();
@@ -129,6 +116,31 @@
             }
         });
     });
+
+    //Update customer
+    $("#btnUpdateCustomer").click(function () {
+
+    });
+
+
+
+    loadAllCustomers();
+    //Methods
+    function loadAllCustomers() {
+        $("#tblCustomerJson").empty();
+        $.ajax({
+            url: "customer",
+            method: "GET",
+            // dataType:"json", // please convert the response into JSON
+            success: function (resp) {
+                console.log(typeof resp);
+                for (const customer of resp) {
+                    let row = `<tr><td>${customer.id}</td><td>${customer.name}</td><td>${customer.address}</td><td>${customer.salary}</td></tr>`;
+                    $("#tblCustomerJson").append(row);
+                }
+            }
+        });
+    }
 
 
 </script>

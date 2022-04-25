@@ -16,6 +16,7 @@ public class CustomerServlet extends HttpServlet {
     // Json Formats
     // String json="{id:C001,name:Dasun,address:Galle,salary:1000}"; //single customer info
     // String jsonSet="[{id:C001,name:Dasun,address:Galle,salary:1000},{id:C001,name:Dasun,address:Galle,salary:1000}]"; //multiple customer info
+    //This method can be used to get customer information.
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
      /*   String customerID = req.getParameter("customerID"); // name value from the input field
@@ -70,7 +71,7 @@ public class CustomerServlet extends HttpServlet {
 
     }
 
-
+    //This method can be used to save a customer
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String customerID = req.getParameter("customerID"); // name value from the input field
@@ -104,6 +105,7 @@ public class CustomerServlet extends HttpServlet {
         }
     }
 
+    //This method can be used to delete a customer.
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("Request Received for delete");
@@ -133,6 +135,12 @@ public class CustomerServlet extends HttpServlet {
             throwables.printStackTrace();
             resp.sendError(500,throwables.getMessage());
         }
+
+    }
+
+    //This method can be used to update a customer
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
     }
 }
