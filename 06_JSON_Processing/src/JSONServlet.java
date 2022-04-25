@@ -1,7 +1,4 @@
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
-import javax.json.JsonReader;
+import javax.json.*;
 import javax.servlet.ServletException;
 import javax.servlet.ServletInputStream;
 import javax.servlet.annotation.WebServlet;
@@ -24,7 +21,7 @@ public class JSONServlet extends HttpServlet {
 
         resp.setContentType("application/json");
 
-        //How to generate a single JSON object using JSON Processing
+       /* //How to generate a single JSON object using JSON Processing
         JsonObjectBuilder objectB = Json.createObjectBuilder();
         objectB.add("id","C001");
         objectB.add("name","Ramal");
@@ -32,9 +29,30 @@ public class JSONServlet extends HttpServlet {
         objectB.add("salary",1000.00);
         JsonObject build = objectB.build();
 
+        PrintWriter writer = resp.getWriter();
+        writer.print(build);*/
+
+
+        JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
+
+        JsonObjectBuilder objectB = Json.createObjectBuilder();
+        objectB.add("id","C001");
+        objectB.add("name","Ramal");
+        objectB.add("address","Galle");
+        objectB.add("salary",1000.00);
+
+        JsonObjectBuilder objectB2 = Json.createObjectBuilder();
+        objectB2.add("id","C002");
+        objectB2.add("name","Sunimal");
+        objectB2.add("address","Panadura");
+        objectB2.add("salary",1000.00);
+
+        arrayBuilder.add(objectB.build());
+        arrayBuilder.add(objectB2.build());
 
         PrintWriter writer = resp.getWriter();
-        writer.print(build);
+        writer.print(arrayBuilder.build());
+
 
     }
 
