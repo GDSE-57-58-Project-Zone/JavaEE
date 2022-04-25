@@ -107,11 +107,32 @@ public class CustomerServlet extends HttpServlet {
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("Request Received for delete");
-        //if we send data from the application/x-www-form-urlencoded type doDelete will not
-        //catch values from req.getParameter(); that type is not supported
+        //if we send data from the application/x-www-form-urlencoded type, doDelete will not
+        //catch values from req.getParameter(); that type is not supported with doDelete
         //but we can send data via Query String
         String customerID = req.getParameter("CusID");
-        System.out.println(customerID);
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/company", "root", "sanu");
+
+            PreparedStatement pstm = connection.prepareStatement("Delete from Customer where id=?");
+            pstm.setObject(1, customerID);
+
+            boolean b = pstm.executeUpdate() > 0;
+            PrintWriter writer = resp.getWriter();
+
+            if (b) {
+                writer.write("Customer Deleted");
+            }
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            resp.sendError(500,e.getMessage());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            resp.sendError(500,throwables.getMessage());
+        }
 
     }
 }
