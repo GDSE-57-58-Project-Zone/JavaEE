@@ -146,6 +146,29 @@ public class CustomerServlet extends HttpServlet {
         String customerName = req.getParameter("customerName");
         String customerAddress = req.getParameter("customerAddress");
         String customerSalary = req.getParameter("customerSalary");
-        System.out.println(customerID + " " + customerName + " " + customerAddress + " " + customerSalary);
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/company", "root", "sanu");
+
+            PreparedStatement pstm = connection.prepareStatement("Update Customer set name=?,address=?,salary=? where id=?");
+            pstm.setObject(1, customerName);
+            pstm.setObject(2, customerAddress);
+            pstm.setObject(3, customerSalary);
+            pstm.setObject(4, customerID);
+            boolean b = pstm.executeUpdate() > 0;
+            PrintWriter writer = resp.getWriter();
+
+            if (b) {
+                writer.write("Customer Updated");
+            }
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            resp.sendError(500, e.getMessage());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            resp.sendError(500, throwables.getMessage());
+        }
     }
 }
