@@ -95,11 +95,7 @@
 
 
     $("#btnSaveCustomer").click(function () {
-
         var data = $("#customerForm").serialize(); // return query string of form with name:type-value
-
-        console.log(data);
-
         $.ajax({
             url: "customer",
             method: "POST",
@@ -116,14 +112,15 @@
     });
 
 
+    //Query String
     //http://localhost:8080/apptwo/customer?CusID=C00-001&CusName=Dasun
-
     $("#btnDeleteCustomer").click(function (){
-
+        // Get the customer id
       let customerID=  $("#cusID").val();
 
+      // initiate the request
         $.ajax({
-            url:"customer?CusID="+customerID,
+            url:"customer?CusID="+customerID,// viva query string
             method:"DELETE",
             //data:data,// application/x-www-form-urlencoded
             success:function (res){
@@ -132,6 +129,8 @@
             }
         });
     });
+
+
 </script>
 </body>
 </html>
