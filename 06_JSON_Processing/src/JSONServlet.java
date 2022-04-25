@@ -33,25 +33,26 @@ public class JSONServlet extends HttpServlet {
         writer.print(build);*/
 
 
-        JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
+        //How to send JSON Object Array with JSON Processing
+        JsonArrayBuilder arrayBuilder = Json.createArrayBuilder(); // create a json array
 
-        JsonObjectBuilder objectB = Json.createObjectBuilder();
+        JsonObjectBuilder objectB = Json.createObjectBuilder(); //Create json object one
         objectB.add("id","C001");
         objectB.add("name","Ramal");
         objectB.add("address","Galle");
         objectB.add("salary",1000.00);
 
-        JsonObjectBuilder objectB2 = Json.createObjectBuilder();
+        JsonObjectBuilder objectB2 = Json.createObjectBuilder();// Create json Object two
         objectB2.add("id","C002");
         objectB2.add("name","Sunimal");
         objectB2.add("address","Panadura");
         objectB2.add("salary",1000.00);
 
-        arrayBuilder.add(objectB.build());
-        arrayBuilder.add(objectB2.build());
+        arrayBuilder.add(objectB.build()); // add json object one to the json array
+        arrayBuilder.add(objectB2.build()); // add json object two to the json array
 
         PrintWriter writer = resp.getWriter();
-        writer.print(arrayBuilder.build());
+        writer.print(arrayBuilder.build()); // then print the jso array as the response
 
 
     }
