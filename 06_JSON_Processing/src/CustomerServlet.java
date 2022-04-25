@@ -28,6 +28,7 @@ public class CustomerServlet extends HttpServlet {
         }*/
 
         //How to work with JSON processing
+        //How to retrieve data from JSON request using JSON Processing Spec
         JsonReader reader = Json.createReader(req.getReader());
         JsonObject jsonObject = reader.readObject();
         String id = jsonObject.getString("id");
