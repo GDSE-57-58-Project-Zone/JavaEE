@@ -124,6 +124,7 @@
 
 
 
+
     loadAllCustomers();
     //Methods
     function loadAllCustomers() {
@@ -138,11 +139,28 @@
                     let row = `<tr><td>${customer.id}</td><td>${customer.name}</td><td>${customer.address}</td><td>${customer.salary}</td></tr>`;
                     $("#tblCustomerJson").append(row);
                 }
+                bindClickEvents();
             }
         });
+
     }
 
+    //Bind click events to the table rows
+    function bindClickEvents(){
+        $("#tblCustomerJson>tr").click(function (){
+            //Get values from the selected row
+            let id=$(this).children().eq(0).text();
+            let name=$(this).children().eq(1).text();
+            let address=$(this).children().eq(2).text();
+            let salary=$(this).children().eq(3).text();
 
+            //Set values to the text-fields
+            $("#cusID").val(id);
+            $("#cusName").val(name);
+            $("#cusAddress").val(address);
+            $("#cusSalary").val(salary);
+        });
+    }
 </script>
 </body>
 </html>
