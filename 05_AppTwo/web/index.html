@@ -13,10 +13,10 @@
 <section class="container-fluid p-4 bg-primary text-white">
     <h1 class="fw-bold">AJAX With jQuery</h1>
 </section>
-<section class="container mt-3">
+<section class="container-fluid mt-3">
     <!--    customer save-->
     <div class="row mt-3">
-        <div class="col-5">
+        <div class="col-4">
             <form id="customerForm">
                 <div class="mb-3">
                     <label class="form-label" for="cusID">Customer ID</label>
@@ -40,16 +40,9 @@
                 <div class="mb-3">
                     <button class="btn btn-primary" id="btnSaveCustomer" type="button">Save Customer</button>
                     <button class="btn btn-warning" id="btnDeleteCustomer" type="button">Delete Customer</button>
+                    <button class="btn btn-danger" id="btn3">Get All</button>
                 </div>
             </form>
-        </div>
-    </div>
-
-
-    <!--File Type : JSON-->
-    <div class="row mt-3">
-        <div class="col-2">
-            <button class="btn btn-danger" id="btn3">Send Request To JSON</button>
         </div>
         <div class="col">
             <table class="table table-bordered table-hover">
@@ -72,6 +65,7 @@
             </table>
         </div>
     </div>
+
 </section>
 
 
