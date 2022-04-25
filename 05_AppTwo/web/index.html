@@ -119,10 +119,17 @@
 
     //Update customer
     $("#btnUpdateCustomer").click(function () {
-
+       let formData= $("#customerForm").serialize();
+        console.log(formData);
+        $.ajax({
+            url:"customer?"+formData,
+            method:"PUT",
+            // data:formData,
+            success:function(res){
+                console.log(res);
+            }
+        });
     });
-
-
 
 
     loadAllCustomers();

@@ -98,10 +98,10 @@ public class CustomerServlet extends HttpServlet {
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-            resp.sendError(500,e.getMessage());
+            resp.sendError(500, e.getMessage());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-            resp.sendError(500,throwables.getMessage());
+            resp.sendError(500, throwables.getMessage());
         }
     }
 
@@ -130,10 +130,10 @@ public class CustomerServlet extends HttpServlet {
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-            resp.sendError(500,e.getMessage());
+            resp.sendError(500, e.getMessage());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-            resp.sendError(500,throwables.getMessage());
+            resp.sendError(500, throwables.getMessage());
         }
 
     }
@@ -141,6 +141,11 @@ public class CustomerServlet extends HttpServlet {
     //This method can be used to update a customer
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        System.out.println("Do Put Request Received");
+        String customerID = req.getParameter("customerID"); // name value from the input field
+        String customerName = req.getParameter("customerName");
+        String customerAddress = req.getParameter("customerAddress");
+        String customerSalary = req.getParameter("customerSalary");
+        System.out.println(customerID + " " + customerName + " " + customerAddress + " " + customerSalary);
     }
 }
