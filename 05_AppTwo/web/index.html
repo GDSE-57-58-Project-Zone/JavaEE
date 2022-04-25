@@ -39,6 +39,7 @@
                 </div>
                 <div class="mb-3">
                     <button class="btn btn-primary" id="btnSaveCustomer" type="button">Save Customer</button>
+                    <button class="btn btn-warning" id="btnDeleteCustomer" type="button">Delete Customer</button>
                 </div>
             </form>
         </div>
@@ -116,6 +117,23 @@
             error: function (ob, textStatus, error) {
                 alert(textStatus);
                 console.log(ob.responseText);
+            }
+        });
+    });
+
+
+    //http://localhost:8080/apptwo/customer?CusID=C00-001&CusName=Dasun
+
+    $("#btnDeleteCustomer").click(function (){
+
+      let customerID=  $("#cusID").val();
+
+        $.ajax({
+            url:"customer?CusID="+customerID,
+            method:"DELETE",
+            //data:data,// application/x-www-form-urlencoded
+            success:function (res){
+                console.log(res);
             }
         });
     });
