@@ -13,8 +13,8 @@ import java.io.IOException;
  * @author : Sanu Vithanage
  * @since : 0.1.0
  **/
-@WebServlet(urlPatterns = "/customer")
-public class CustomerServlet extends HttpServlet {
+@WebServlet(urlPatterns = "/json")
+public class JSONServlet extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
