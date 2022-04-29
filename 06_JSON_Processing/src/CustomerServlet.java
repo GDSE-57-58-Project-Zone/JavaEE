@@ -77,8 +77,7 @@ public class CustomerServlet extends HttpServlet {
         String customerAddress = req.getParameter("customerAddress");
         String salary = req.getParameter("customerSalary");
         PrintWriter writer = resp.getWriter();
-
-
+        resp.setContentType("application/json");
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/company", "root", "sanu");
@@ -100,7 +99,7 @@ public class CustomerServlet extends HttpServlet {
 
         } catch (ClassNotFoundException e) {
             JsonObjectBuilder response = Json.createObjectBuilder();
-            response.add("status", 500);
+            response.add("status", 400);
             response.add("message", "Error");
             response.add("data", e.getLocalizedMessage());
             writer.print(response.build());
@@ -109,6 +108,7 @@ public class CustomerServlet extends HttpServlet {
             e.printStackTrace();
         } catch (SQLException throwables) {
             JsonObjectBuilder response = Json.createObjectBuilder();
+            response.add("status", 400);
             response.add("message", "Error");
             response.add("data", throwables.getLocalizedMessage());
             writer.print(response.build());
