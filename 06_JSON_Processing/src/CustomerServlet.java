@@ -72,44 +72,47 @@ public class CustomerServlet extends HttpServlet {
     //This method can be used to save a customer
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String customerID = req.getParameter("customerID"); // name value from the input field
+       /* String customerID = req.getParameter("customerID"); // name value from the input field
         String customerName = req.getParameter("customerName");
         String customerAddress = req.getParameter("customerAddress");
         String salary = req.getParameter("customerSalary");
-        PrintWriter writer = resp.getWriter();
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/company", "root", "sanu");
+        PrintWriter writer = resp.getWriter();*/
 
-            PreparedStatement pstm = connection.prepareStatement("Insert into Customer values(?,?,?,?)");
-            pstm.setObject(1, customerID);
-            pstm.setObject(2, customerName);
-            pstm.setObject(3, customerAddress);
-            pstm.setObject(4, salary);
+        resp.setStatus(300);
 
-            if (pstm.executeUpdate() > 0) {
-                JsonObjectBuilder response = Json.createObjectBuilder();
-                response.add("status", 200);
-                response.add("message", "Successfully Added");
-                response.add("data", "");
-                writer.print(response.build());
-            }
-
-        } catch (ClassNotFoundException e) {
-            JsonObjectBuilder response = Json.createObjectBuilder();
-            response.add("status", 500);
-            response.add("message", "Error");
-            response.add("data", e.getLocalizedMessage());
-            writer.print(response.build());
-            e.printStackTrace();
-        } catch (SQLException throwables) {
-            JsonObjectBuilder response = Json.createObjectBuilder();
-            response.add("status", 500);
-            response.add("message", "Error");
-            response.add("data", throwables.getLocalizedMessage());
-            writer.print(response.build());
-            throwables.printStackTrace();
-        }
+//        try {
+//            Class.forName("com.mysql.jdbc.Driver");
+//            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/company", "root", "sanu");
+//
+//            PreparedStatement pstm = connection.prepareStatement("Insert into Customer values(?,?,?,?)");
+//            pstm.setObject(1, customerID);
+//            pstm.setObject(2, customerName);
+//            pstm.setObject(3, customerAddress);
+//            pstm.setObject(4, salary);
+//
+//            if (pstm.executeUpdate() > 0) {
+//                JsonObjectBuilder response = Json.createObjectBuilder();
+//                response.add("status", 200);
+//                response.add("message", "Successfully Added");
+//                response.add("data", "");
+//                writer.print(response.build());
+//            }
+//
+//        } catch (ClassNotFoundException e) {
+//            JsonObjectBuilder response = Json.createObjectBuilder();
+//            response.add("status", 500);
+//            response.add("message", "Error");
+//            response.add("data", e.getLocalizedMessage());
+//            writer.print(response.build());
+//            e.printStackTrace();
+//        } catch (SQLException throwables) {
+//            JsonObjectBuilder response = Json.createObjectBuilder();
+//            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+//            response.add("message", "Error");
+//            response.add("data", throwables.getLocalizedMessage());
+//            writer.print(response.build());
+//            throwables.printStackTrace();
+//        }
     }
 
     //This method can be used to delete a customer.
