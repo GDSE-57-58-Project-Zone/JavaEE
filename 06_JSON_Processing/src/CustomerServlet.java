@@ -1,3 +1,6 @@
+import javax.json.Json;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonObjectBuilder;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,32 +16,21 @@ import java.sql.*;
  **/
 @WebServlet(urlPatterns = "/customer")
 public class CustomerServlet extends HttpServlet {
-    // Json Formats
-    // String json="{id:C001,name:Dasun,address:Galle,salary:1000}"; //single customer info
-    // String jsonSet="[{id:C001,name:Dasun,address:Galle,salary:1000},{id:C001,name:Dasun,address:Galle,salary:1000}]"; //multiple customer info
-    //This method can be used to get customer information.
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-     /*   String customerID = req.getParameter("customerID"); // name value from the input field
-        String customerName = req.getParameter("customerName");
-        String customerAddress = req.getParameter("customerAddress");
-        String salary = req.getParameter("customerSalary");
-        System.out.println(customerID+" "+customerName+" "+customerAddress+" "+salary+" From Get");*/
 
         try {
             //The Media Type of the Content of the response
-            resp.setContentType("application/json"); // MIME Types (Multipurpose Internet Mail Extensions)
-
-            //meta data for response from headers
-            resp.addHeader("Institute", "IJSE");
-            resp.addHeader("Course", "GDSE");
-
+            resp.setContentType("application/json");
 
             //Initialize the connection
             Class.forName("com.mysql.jdbc.Driver");
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/company", "root", "sanu");
             ResultSet rst = connection.prepareStatement("select * from Customer").executeQuery();
-            String allRecords = "";
+
+            JsonArrayBuilder arrayBuilder = Json.createArrayBuilder(); // json array
+
             // Access the records and generate a json object
             while (rst.next()) {
                 String id = rst.getString(1);
@@ -46,28 +38,23 @@ public class CustomerServlet extends HttpServlet {
                 String address = rst.getString(3);
                 double salary = rst.getDouble(4);
 
-                //Convert one record for json
-                String customer = "{\"id\":\"" + id + "\",\"name\":\"" + name + "\",\"address\":\"" + address + "\",\"salary\":" + salary + "},";
-                allRecords = allRecords + customer;
+                //{ id:C001,name:Kasun,address:Galle,salary:1000 }
+                //Create a json object and store values
+                JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                objectBuilder.add("id", id);
+                objectBuilder.add("name", name);
+                objectBuilder.add("address", address);
+                objectBuilder.add("salary", salary);
+
+                // add the json object to the json array
+                arrayBuilder.add(objectBuilder.build());
+
             }
-            //Output of allRecords for now
-            //{id:C001,name:Dasun,address:Galle,salary:1000},{id:C001,name:Dasun,address:Galle,salary:1000},
 
-            //How it should be formatted
-            //[{id:C001,name:Dasun,address:Galle,salary:1000},{id:C001,name:Dasun,address:Galle,salary:1000}]
-
-            //After last customer object, ',' should be removed
-            String finalJson = "[" + allRecords.substring(0, allRecords.length() - 1) + "]";
-
-            //Then print it as the response
+            //Then build and print the json array
             PrintWriter writer = resp.getWriter();
-            writer.write(finalJson); //Possible response types -> //text //xml //html //json
+            writer.print(arrayBuilder.build());
 
-            //            {
-//                "data": "[{},{},{},{}]",
-//                "message":"Done",
-//                "status":"200"
-//            }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException throwables) {
