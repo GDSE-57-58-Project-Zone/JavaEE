@@ -48,12 +48,18 @@ public class CustomerServlet extends HttpServlet {
 
                 // add the json object to the json array
                 arrayBuilder.add(objectBuilder.build());
-
             }
 
             //Then build and print the json array
             PrintWriter writer = resp.getWriter();
-            writer.print(arrayBuilder.build());
+
+            //Generate a custom response with json
+            JsonObjectBuilder response = Json.createObjectBuilder();
+            response.add("status",200);
+            response.add("message","Done");
+            response.add("data",arrayBuilder.build());
+
+            writer.print(response.build());
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
