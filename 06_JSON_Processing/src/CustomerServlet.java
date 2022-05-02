@@ -72,6 +72,10 @@ public class CustomerServlet extends HttpServlet {
     //This method can be used to save a customer
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+      /*  resp.setStatus(404);//only status code- no error message
+        resp.sendError(404); //status and relavent error message for 404*/
+
         String customerID = req.getParameter("customerID"); // name value from the input field
         String customerName = req.getParameter("customerName");
         String customerAddress = req.getParameter("customerAddress");
