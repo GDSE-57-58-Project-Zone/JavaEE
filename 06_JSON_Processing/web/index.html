@@ -88,8 +88,13 @@
             method: "POST",
             data: data,// if we send data with the request
             success: function (res) {
-                console.log(res);
-                loadAllCustomers();
+                if (res.status == 200) {
+                    alert(res.message);
+                    loadAllCustomers();
+                } else {
+                    alert(res.data);
+                }
+
             },
             error: function (ob, textStatus, error) {
                 alert(textStatus);

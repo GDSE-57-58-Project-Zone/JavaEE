@@ -91,7 +91,7 @@ public class CustomerServlet extends HttpServlet {
             if (pstm.executeUpdate() > 0) {
                 JsonObjectBuilder response = Json.createObjectBuilder();
                 resp.setStatus(HttpServletResponse.SC_CREATED);//201
-                response.add("status", 201);
+                response.add("status", 200);
                 response.add("message", "Successfully Added");
                 response.add("data", "");
                 writer.print(response.build());
@@ -104,7 +104,7 @@ public class CustomerServlet extends HttpServlet {
             response.add("data", e.getLocalizedMessage());
             writer.print(response.build());
 
-            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST); //400
+            resp.setStatus(HttpServletResponse.SC_OK); //200
             e.printStackTrace();
         } catch (SQLException throwables) {
             JsonObjectBuilder response = Json.createObjectBuilder();
@@ -113,7 +113,7 @@ public class CustomerServlet extends HttpServlet {
             response.add("data", throwables.getLocalizedMessage());
             writer.print(response.build());
 
-            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST); //400
+            resp.setStatus(HttpServletResponse.SC_OK); //200
             throwables.printStackTrace();
         }
     }
