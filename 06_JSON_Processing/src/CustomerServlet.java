@@ -130,6 +130,8 @@ public class CustomerServlet extends HttpServlet {
         //catch values from req.getParameter(); that type is not supported with doDelete
         //but we can send data via Query String
         String customerID = req.getParameter("CusID");
+        PrintWriter writer = resp.getWriter();
+        resp.setContentType("application/json");
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -138,24 +140,41 @@ public class CustomerServlet extends HttpServlet {
             PreparedStatement pstm = connection.prepareStatement("Delete from Customer where id=?");
             pstm.setObject(1, customerID);
 
-            boolean b = pstm.executeUpdate() > 0;
-            PrintWriter writer = resp.getWriter();
 
-            if (b) {
-                writer.write("Customer Deleted");
+
+            if(pstm.executeUpdate() > 0){
+                JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                objectBuilder.add("status",200);
+                objectBuilder.add("data","");
+                objectBuilder.add("message","Successfully Deleted");
+
+                writer.print(objectBuilder.build());
             }
 
-            //            {
-//                "data": "",
-//                "message":"Succsefully Deleted",
-//                "status":"200"
-//            }
+
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            resp.sendError(500, e.getMessage());
+//            e.printStackTrace();
+//            resp.sendError(500, e.getMessage());
+            resp.setStatus(200);
+
+            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+            objectBuilder.add("status",500);
+            objectBuilder.add("message","Error");
+            objectBuilder.add("data",e.getLocalizedMessage());
+
+            writer.print(objectBuilder.build());
+
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            resp.sendError(500, throwables.getMessage());
+//            throwables.printStackTrace();
+//            resp.sendError(500, throwables.getMessage());
+            resp.setStatus(200);
+
+            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+            objectBuilder.add("status",500);
+            objectBuilder.add("message","Error");
+            objectBuilder.add("data",throwables.getLocalizedMessage());
+
+            writer.print(objectBuilder.build());
         }
 
     }

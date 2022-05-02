@@ -113,12 +113,17 @@
 
         // initiate the request
         $.ajax({
-            url: "customer?CusID=" + customerID,// viva query string
+            url: "customer?CusID=" + customerID,// viya query string
             method: "DELETE",
             //data:data,// application/x-www-form-urlencoded
             success: function (res) {
-                alert(res);
+                console.log(res);
                 loadAllCustomers();
+            },
+            error:function (ob,status,t){
+                console.log(ob);
+                console.log(status);
+                console.log(t);
             }
         });
     });
