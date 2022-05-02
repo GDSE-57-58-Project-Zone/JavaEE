@@ -118,12 +118,12 @@
             //data:data,// application/x-www-form-urlencoded
             success: function (res) {
                 console.log(res);
-                if(res.status==200){
+                if (res.status == 200) {
                     alert(res.message);
                     loadAllCustomers();
-                }else if(res.status==400){
+                } else if (res.status == 400) {
                     alert(res.data);
-                }else{
+                } else {
                     alert(res.data);
                 }
 
@@ -138,15 +138,31 @@
 
     //Update customer
     $("#btnUpdateCustomer").click(function () {
-        let formData = $("#customerForm").serialize();
-        console.log(formData);
+
+        var cusOb = {
+            id: $("#cusID").val(),
+            name: $("#cusName").val(),
+            address: $("#cusAddress").val(),
+            salary: $("#cusSalary").val()
+        }
+
         $.ajax({
-            url: "customer?" + formData,
+            url: "customer",
             method: "PUT",
-            // data:formData,
+            contentType: "application/json", //request content type json
+            data: JSON.stringify(cusOb),
             success: function (res) {
-                alert(res);
-                loadAllCustomers();
+                if (res.status == 200) {
+                    alert(res.message);
+                    loadAllCustomers();
+                } else if (res.status == 400) {
+                    alert(res.message);
+                } else {
+                    alert(res.data);
+                }
+            },
+            error: function (ob, errorStus) {
+                console.log(ob);
             }
         });
     });

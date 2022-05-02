@@ -1,6 +1,4 @@
-import javax.json.Json;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonObjectBuilder;
+import javax.json.*;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -80,6 +78,7 @@ public class CustomerServlet extends HttpServlet {
         String customerName = req.getParameter("customerName");
         String customerAddress = req.getParameter("customerAddress");
         String salary = req.getParameter("customerSalary");
+
         PrintWriter writer = resp.getWriter();
         resp.setContentType("application/json");
         try {
@@ -136,21 +135,20 @@ public class CustomerServlet extends HttpServlet {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/company", "root", "sanu");
-
             PreparedStatement pstm = connection.prepareStatement("Delete from Customer where id=?");
             pstm.setObject(1, customerID);
 
-            if(pstm.executeUpdate() > 0){
+            if (pstm.executeUpdate() > 0) {
                 JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-                objectBuilder.add("status",200);
-                objectBuilder.add("data","");
-                objectBuilder.add("message","Successfully Deleted");
+                objectBuilder.add("status", 200);
+                objectBuilder.add("data", "");
+                objectBuilder.add("message", "Successfully Deleted");
                 writer.print(objectBuilder.build());
-            }else{
+            } else {
                 JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-                objectBuilder.add("status",400);
-                objectBuilder.add("data","Wrong Id Inserted");
-                objectBuilder.add("message","");
+                objectBuilder.add("status", 400);
+                objectBuilder.add("data", "Wrong Id Inserted");
+                objectBuilder.add("message", "");
                 writer.print(objectBuilder.build());
             }
 
@@ -159,24 +157,20 @@ public class CustomerServlet extends HttpServlet {
 //            e.printStackTrace();
 //            resp.sendError(500, e.getMessage());
             resp.setStatus(200);
-
             JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-            objectBuilder.add("status",500);
-            objectBuilder.add("message","Error");
-            objectBuilder.add("data",e.getLocalizedMessage());
-
+            objectBuilder.add("status", 500);
+            objectBuilder.add("message", "Error");
+            objectBuilder.add("data", e.getLocalizedMessage());
             writer.print(objectBuilder.build());
 
         } catch (SQLException throwables) {
 //            throwables.printStackTrace();
 //            resp.sendError(500, throwables.getMessage());
             resp.setStatus(200);
-
             JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-            objectBuilder.add("status",500);
-            objectBuilder.add("message","Error");
-            objectBuilder.add("data",throwables.getLocalizedMessage());
-
+            objectBuilder.add("status", 500);
+            objectBuilder.add("message", "Error");
+            objectBuilder.add("data", throwables.getLocalizedMessage());
             writer.print(objectBuilder.build());
         }
 
@@ -185,10 +179,17 @@ public class CustomerServlet extends HttpServlet {
     //This method can be used to update a customer
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String customerID = req.getParameter("customerID"); // name value from the input field
-        String customerName = req.getParameter("customerName");
-        String customerAddress = req.getParameter("customerAddress");
-        String customerSalary = req.getParameter("customerSalary");
+
+        //we have to get updated data from JSON format
+        JsonReader reader = Json.createReader(req.getReader());
+        JsonObject jsonObject = reader.readObject();
+        String customerID = jsonObject.getString("id");
+        String customerName = jsonObject.getString("name");
+        String customerAddress = jsonObject.getString("address");
+        String customerSalary = jsonObject.getString("salary");
+        PrintWriter writer = resp.getWriter();
+
+        resp.setContentType("application/json");
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -199,24 +200,38 @@ public class CustomerServlet extends HttpServlet {
             pstm.setObject(2, customerAddress);
             pstm.setObject(3, customerSalary);
             pstm.setObject(4, customerID);
-            boolean b = pstm.executeUpdate() > 0;
-            PrintWriter writer = resp.getWriter();
 
-            if (b) {
-                writer.write("Customer Updated");
+
+            if (pstm.executeUpdate() > 0) {
+                JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                objectBuilder.add("status", 200);
+                objectBuilder.add("message", "Successfully Updated");
+                objectBuilder.add("data", "");
+                writer.print(objectBuilder.build());
+            } else {
+                JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                objectBuilder.add("status", 400);
+                objectBuilder.add("message", "Update Failed");
+                objectBuilder.add("data", "");
+                writer.print(objectBuilder.build());
             }
-            //            {
-//                "data": "",
-//                "message":"Succsefully Updated",
-//                "status":"200"
-//            }
 
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            resp.sendError(500, e.getMessage());
+//            e.printStackTrace();
+//            resp.sendError(500, e.getMessage());
+            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+            objectBuilder.add("status", 500);
+            objectBuilder.add("message", "Update Failed");
+            objectBuilder.add("data", e.getLocalizedMessage());
+            writer.print(objectBuilder.build());
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            resp.sendError(500, throwables.getMessage());
+//            throwables.printStackTrace();
+//            resp.sendError(500, throwables.getMessage());
+            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+            objectBuilder.add("status", 500);
+            objectBuilder.add("message", "Update Failed");
+            objectBuilder.add("data", throwables.getLocalizedMessage());
+            writer.print(objectBuilder.build());
         }
     }
 }
