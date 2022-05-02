@@ -159,7 +159,7 @@
                 } else if (res.status == 400) { // there is a problem with the client side
                     alert(res.message);
                 } else {
-                    alert(res.data); // else may be there is a exception
+                    alert(res.data); // else maybe there is an exception
                 }
             },
             error: function (ob, errorStus) {
@@ -175,7 +175,7 @@
     function loadAllCustomers() {
         $("#tblCustomerJson").empty();
         $.ajax({
-            url: "customer",
+            url: "customer?option=GETALL",
             method: "GET",
             // dataType:"json", // please convert the response into JSON
             success: function (resp) {

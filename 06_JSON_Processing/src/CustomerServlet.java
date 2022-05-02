@@ -17,48 +17,51 @@ public class CustomerServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         try {
+            String option = req.getParameter("option");
             //The Media Type of the Content of the response
             resp.setContentType("application/json");
-
             //Initialize the connection
             Class.forName("com.mysql.jdbc.Driver");
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/company", "root", "sanu");
-            ResultSet rst = connection.prepareStatement("select * from Customer").executeQuery();
-
-            JsonArrayBuilder arrayBuilder = Json.createArrayBuilder(); // json array
-
-            // Access the records and generate a json object
-            while (rst.next()) {
-                String id = rst.getString(1);
-                String name = rst.getString(2);
-                String address = rst.getString(3);
-                double salary = rst.getDouble(4);
-
-                //{ id:C001,name:Kasun,address:Galle,salary:1000 }
-                //Create a json object and store values
-                JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-                objectBuilder.add("id", id);
-                objectBuilder.add("name", name);
-                objectBuilder.add("address", address);
-                objectBuilder.add("salary", salary);
-
-                // add the json object to the json array
-                arrayBuilder.add(objectBuilder.build());
-            }
-
-            //Then build and print the json array
             PrintWriter writer = resp.getWriter();
+            switch (option) {
+                case "SEARCH":
 
-            //Generate a custom response with json
-            JsonObjectBuilder response = Json.createObjectBuilder();
-            response.add("status", 200);
-            response.add("message", "Done");
-            response.add("data", arrayBuilder.build());
+                    //write the code for customer search
 
-            writer.print(response.build());
+                    break;
+                case "GETALL":
+                    ResultSet rst = connection.prepareStatement("select * from Customer").executeQuery();
 
+                    JsonArrayBuilder arrayBuilder = Json.createArrayBuilder(); // json array
+
+                    // Access the records and generate a json object
+                    while (rst.next()) {
+                        String id = rst.getString(1);
+                        String name = rst.getString(2);
+                        String address = rst.getString(3);
+                        double salary = rst.getDouble(4);
+
+                        //{ id:C001,name:Kasun,address:Galle,salary:1000 }
+                        //Create a json object and store values
+                        JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                        objectBuilder.add("id", id);
+                        objectBuilder.add("name", name);
+                        objectBuilder.add("address", address);
+                        objectBuilder.add("salary", salary);
+
+                        // add the json object to the json array
+                        arrayBuilder.add(objectBuilder.build());
+                    }
+                    //Generate a custom response with json
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    response.add("status", 200);
+                    response.add("message", "Done");
+                    response.add("data", arrayBuilder.build());
+                    writer.print(response.build());
+                    break;
+            }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException throwables) {
