@@ -140,14 +140,17 @@ public class CustomerServlet extends HttpServlet {
             PreparedStatement pstm = connection.prepareStatement("Delete from Customer where id=?");
             pstm.setObject(1, customerID);
 
-
-
             if(pstm.executeUpdate() > 0){
                 JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
                 objectBuilder.add("status",200);
                 objectBuilder.add("data","");
                 objectBuilder.add("message","Successfully Deleted");
-
+                writer.print(objectBuilder.build());
+            }else{
+                JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                objectBuilder.add("status",400);
+                objectBuilder.add("data","Wrong Id Inserted");
+                objectBuilder.add("message","");
                 writer.print(objectBuilder.build());
             }
 

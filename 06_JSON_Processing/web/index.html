@@ -118,9 +118,17 @@
             //data:data,// application/x-www-form-urlencoded
             success: function (res) {
                 console.log(res);
-                loadAllCustomers();
+                if(res.status==200){
+                    alert(res.message);
+                    loadAllCustomers();
+                }else if(res.status==400){
+                    alert(res.data);
+                }else{
+                    alert(res.data);
+                }
+
             },
-            error:function (ob,status,t){
+            error: function (ob, status, t) {
                 console.log(ob);
                 console.log(status);
                 console.log(t);
