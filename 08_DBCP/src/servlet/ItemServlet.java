@@ -26,13 +26,13 @@ public class ItemServlet extends HttpServlet {
         BasicDataSource bds = (BasicDataSource) servletContext.getAttribute("bds");
 
         try {
-            Connection connection = bds.getConnection();
+            Connection connection = bds.getConnection(); // return a new connection from the pool
             PreparedStatement pstm = connection.prepareStatement("select * from Item");
             ResultSet rst = pstm.executeQuery();
             while (rst.next()) {
                 System.out.println(rst.getString(1));
             }
-
+            connection.close();// return the connection to the pool from the consumer pool
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
