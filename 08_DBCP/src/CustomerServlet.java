@@ -1,5 +1,6 @@
 import org.apache.commons.dbcp2.BasicDataSource;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,6 +31,9 @@ public class CustomerServlet extends HttpServlet {
         bds.setMaxTotal(5); // how many connections
         bds.setInitialSize(5); // how many connection we should initialize
 
+        ServletContext servletContext = req.getServletContext();// a common place for all servlet
+        servletContext.setAttribute("bds",bds); // store the pool inside the Servlet Context
+
 
         try {
             Connection connection = bds.getConnection();
@@ -43,7 +47,11 @@ public class CustomerServlet extends HttpServlet {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
 
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
     }
 }
