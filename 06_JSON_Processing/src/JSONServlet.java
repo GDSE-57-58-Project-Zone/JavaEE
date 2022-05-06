@@ -84,6 +84,7 @@ public class JSONServlet extends HttpServlet {
         //read json array from a request
         JsonReader reader = Json.createReader(req.getReader());
         JsonArray jsonArray = reader.readArray();
+
         for (JsonValue jsonValue : jsonArray) {
 
             String customerID = jsonValue.asJsonObject().getString("id");

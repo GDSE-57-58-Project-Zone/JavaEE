@@ -1,0 +1,17 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="dbcp">
+    <output-path>$PROJECT_DIR$/out/artifacts/dbcp</output-path>
+    <root id="archive" name="dbcp.war">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="08_DBCP" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="JSON Processing" />
+          <element id="library" level="project" name="mysql-connector-java-5.1.49" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="08_DBCP/web/Web" />
+    </root>
+  </artifact>
+</component>

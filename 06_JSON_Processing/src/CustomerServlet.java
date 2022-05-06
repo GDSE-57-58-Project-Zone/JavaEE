@@ -25,6 +25,9 @@ public class CustomerServlet extends HttpServlet {
             Class.forName("com.mysql.jdbc.Driver");
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/company", "root", "sanu");
             PrintWriter writer = resp.getWriter();
+
+
+
             switch (option) {
                 case "SEARCH":
 
