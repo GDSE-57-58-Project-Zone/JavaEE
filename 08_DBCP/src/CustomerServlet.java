@@ -1,9 +1,15 @@
+import org.apache.commons.dbcp2.BasicDataSource;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * @author : Sanu Vithanage
@@ -11,8 +17,33 @@ import java.io.IOException;
  **/
 @WebServlet(urlPatterns = "/customer")
 public class CustomerServlet extends HttpServlet {
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("Do Get Method Invoked");
+
+        //How to create the DBCP pool
+        BasicDataSource bds= new BasicDataSource();
+        bds.setDriverClassName("com.mysql.jdbc.Driver");
+        bds.setUrl("jdbc:mysql://localhost:3306/company");
+        bds.setUsername("root");
+        bds.setPassword("sanu");
+        bds.setMaxTotal(5); // how many connections
+        bds.setInitialSize(5); // how many connection we should initialize
+
+
+        try {
+            Connection connection = bds.getConnection();
+            PreparedStatement pstm = connection.prepareStatement("select * from Customer");
+            ResultSet rst = pstm.executeQuery();
+            while (rst.next()) {
+                String id = rst.getString(1);
+                System.out.println(id);
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+
     }
 }

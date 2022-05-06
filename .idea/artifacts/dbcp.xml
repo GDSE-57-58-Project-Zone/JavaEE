@@ -9,6 +9,7 @@
         <element id="directory" name="lib">
           <element id="library" level="project" name="JSON Processing" />
           <element id="library" level="project" name="mysql-connector-java-5.1.49" />
+          <element id="library" level="project" name="commons-dbcp2-2.9.0" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="08_DBCP/web/Web" />
