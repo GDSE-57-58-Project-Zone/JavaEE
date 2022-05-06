@@ -1,3 +1,5 @@
+package servlet;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +16,6 @@ import java.io.IOException;
 public class MyServlet extends HttpServlet {
 
     //Life cycle of a servlet
-
     public MyServlet() {
         System.out.println("Onna object ekak haduna");
     }

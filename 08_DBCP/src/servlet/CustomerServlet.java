@@ -1,3 +1,5 @@
+package servlet;
+
 import org.apache.commons.dbcp2.BasicDataSource;
 
 import javax.servlet.ServletContext;
@@ -33,7 +35,6 @@ public class CustomerServlet extends HttpServlet {
 
         ServletContext servletContext = req.getServletContext();// a common place for all servlet
         servletContext.setAttribute("bds", bds); // store the pool inside the Servlet Context
-
 
         try {
             Connection connection = bds.getConnection();
