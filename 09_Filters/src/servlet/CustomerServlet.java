@@ -196,11 +196,11 @@ public class CustomerServlet extends HttpServlet {
     }
 
 
+    //Invoke by doDelete and doPut method to verify that server is supporting CORS origin requests
     @Override
     protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.addHeader("Access-Control-Allow-Origin", "*");
         resp.addHeader("Access-Control-Allow-Methods", "DELETE, PUT");
         resp.addHeader("Access-Control-Allow-Headers", "Content-Type");
-
     }
 }
