@@ -8,7 +8,7 @@ import java.io.IOException;
  * @author : Sanu Vithanage
  * @since : 0.1.0
  **/
-@WebFilter(urlPatterns = "/customer")
+@WebFilter(urlPatterns = "/item")
 public class MyFilter implements Filter {
 
     public MyFilter() {
@@ -22,7 +22,11 @@ public class MyFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        System.out.println("Do Filter Method Called");
+        System.out.println("First");
+
+        filterChain.doFilter(servletRequest, servletResponse);
+
+        System.out.println("Second");
     }
 
     @Override
