@@ -113,7 +113,7 @@
 
         // initiate the request
         $.ajax({
-            url: "customer?CusID=" + customerID,// viya query string
+            url: "http://localhost:8080/filter/customer?CusID=" + customerID,// viya query string
             method: "DELETE",
             //data:data,// application/x-www-form-urlencoded
             success: function (res) {
