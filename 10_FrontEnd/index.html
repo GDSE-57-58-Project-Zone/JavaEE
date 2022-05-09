@@ -148,7 +148,7 @@
         }
 
         $.ajax({
-            url: "customer",
+            url: "http://localhost:8080/filter/customer",
             method: "PUT",
             contentType: "application/json", //You should state request's content type using MIME types
             data: JSON.stringify(cusOb), // format js object to valid json string
