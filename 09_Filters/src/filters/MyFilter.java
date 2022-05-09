@@ -8,7 +8,8 @@ import java.io.IOException;
  * @author : Sanu Vithanage
  * @since : 0.1.0
  **/
-@WebFilter(urlPatterns = "/item")
+//@WebFilter(urlPatterns = {"/customer","/item","/order"})
+@WebFilter(urlPatterns = "/*")
 public class MyFilter implements Filter {
 
     public MyFilter() {
@@ -22,10 +23,12 @@ public class MyFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+        //Before the request send
         System.out.println("First");
 
-        filterChain.doFilter(servletRequest, servletResponse);
+        filterChain.doFilter(servletRequest, servletResponse); // proceed request to the servlet
 
+        //After the servlet response
         System.out.println("Second");
     }
 
