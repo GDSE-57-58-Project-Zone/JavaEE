@@ -33,6 +33,9 @@ public class CustomerServlet extends HttpServlet {
             Connection connection = ds.getConnection();
             PrintWriter writer = resp.getWriter();
 
+            resp.addHeader("Access-Control-Allow-Origin","*");
+
+
             switch (option) {
                 case "SEARCH":
                     //write the code for customer search

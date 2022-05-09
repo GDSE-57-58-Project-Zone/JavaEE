@@ -41,7 +41,7 @@
                     <button class="btn btn-primary" id="btnSaveCustomer" type="button">Save</button>
                     <button class="btn btn-warning" id="btnUpdateCustomer" type="button">Update</button>
                     <button class="btn btn-danger" id="btnDeleteCustomer" type="button">Delete</button>
-                    <button class="btn btn-success" id="btnGetAllCustomers">Get All</button>
+                    <button class="btn btn-success" id="btnGetAllCustomers" type="button">Get All</button>
                 </div>
             </form>
         </div>
@@ -175,7 +175,7 @@
     function loadAllCustomers() {
         $("#tblCustomerJson").empty();
         $.ajax({
-            url: "customer?option=GETALL",
+            url: "http://localhost:8080/filter/customer?option=GETALL",
             method: "GET",
             // dataType:"json", // please convert the response into JSON
             success: function (resp) {
