@@ -84,7 +84,7 @@
     $("#btnSaveCustomer").click(function () {
         var data = $("#customerForm").serialize(); // return query string of form with name:type-value
         $.ajax({
-            url: "customer",
+            url: "http://localhost:8080/filter/customer",
             method: "POST",
             data: data,// if we send data with the request
             success: function (res) {

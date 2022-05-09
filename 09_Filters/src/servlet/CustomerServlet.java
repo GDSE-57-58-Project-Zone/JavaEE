@@ -80,6 +80,8 @@ public class CustomerServlet extends HttpServlet {
         String customerAddress = req.getParameter("customerAddress");
         String salary = req.getParameter("customerSalary");
 
+        resp.addHeader("Access-Control-Allow-Origin","*");
+
         PrintWriter writer = resp.getWriter();
         resp.setContentType("application/json");
         try {
