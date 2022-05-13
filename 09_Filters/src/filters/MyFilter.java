@@ -12,7 +12,7 @@ import java.io.PrintWriter;
  * @since : 0.1.0
  **/
 //@WebFilter(urlPatterns = {"/customer","/item","/order"}) // filter only these servlets
-@WebFilter(urlPatterns = "/*") //filter all requests
+//@WebFilter(urlPatterns = "/*") //filter all requests
 public class MyFilter implements Filter {
 
     public MyFilter() {
@@ -29,6 +29,7 @@ public class MyFilter implements Filter {
         //Before the request send
         System.out.println("First");
 
+        //Cast ServletRequest to HttpServletRequest to access addHeader method
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse res = (HttpServletResponse) servletResponse;
 
@@ -36,11 +37,12 @@ public class MyFilter implements Filter {
         // without this line the request will not proceed to the servlet
         filterChain.doFilter(servletRequest, servletResponse); // proceed request to the servlet
 
+        //Intercept the response object and add something new
         PrintWriter writer = servletResponse.getWriter();
         writer.write("Added from MyFilter");
 
 
-        //
+        //Add a header info to the response
         res.addHeader("MyCompany", "IJSE");
 
 
