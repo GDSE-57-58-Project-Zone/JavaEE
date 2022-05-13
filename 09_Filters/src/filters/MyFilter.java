@@ -2,6 +2,8 @@ package filters;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -27,6 +29,9 @@ public class MyFilter implements Filter {
         //Before the request send
         System.out.println("First");
 
+        HttpServletRequest req = (HttpServletRequest) servletRequest;
+        HttpServletResponse res = (HttpServletResponse) servletResponse;
+
 
         // without this line the request will not proceed to the servlet
         filterChain.doFilter(servletRequest, servletResponse); // proceed request to the servlet
@@ -36,9 +41,7 @@ public class MyFilter implements Filter {
 
 
         //
-        servletResponse.addHeader("MyCompany", "IJSE");
-
-
+        res.addHeader("MyCompany", "IJSE");
 
 
         //After the servlet response
